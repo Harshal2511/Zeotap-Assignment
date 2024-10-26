@@ -1,28 +1,32 @@
 # Zeotap-Assignment
 
 #Assigment no 1: Rule Engine with AST
-Step1: Create Backend with Python
-  a: Set Up Flask for the Backend
-  b: Create Flask API: Save the Python code in a file called app.py.
-  c: Run the Flask Server: python app.py, This will start the server on http://127.0.0.1:5000.
+  This project is a web-based rule engine that uses an Abstract Syntax Tree (AST) to parse, combine, and evaluate rules based on user-defined criteria. The project includes a backend built with Flask and a simple frontend for user interaction, allowing you to create rules, combine them, and evaluate data against these rules in real-time.
 
-Step 2: Create the Frontend with HTML and JavaScript
-  Saved all the HTML code in a file called index.html.
+ Features:
+  *Define Rules: Users can input logical conditions to create rules.
+  *Combine Rules: Combine multiple rules using logical operators (AND/OR).
+  *Evaluate Rules: Evaluate combined rules based on user-provided data.
+  *Interactive UI: Simple HTML/JavaScript interface to interact with the rule engine
 
-Explanation of Frontend
- 1. Create Rule Section:
-    Input a rule string and click Create Rule.
-    The rule is sent to the backend’s /create_rule endpoint to be parsed and stored.
+  Usage:
+    * Create Rule: Enter a rule in the format attribute operator value, using logical operators like AND and OR to combine conditions. 
+      Example: age > 30 AND department == 'Sales'.
+    * Combine Rules: After creating multiple rules, select an operator (AND/OR) and click "Combine Rules" to create a single rule tree.
+    * Evaluate Rule: Input data as a JSON object to evaluate against the combined rules. Example: {"age": 35, "department": "Sales", 
+      "salary": 60000}.
 
- 2. Combine Rules Section:
-    Select an operator (AND or OR) and click Combine Rules.
-    This sends a request to the backend’s /combine_rules endpoint to merge all created rules into one combined AST.
-  
- 3. Evaluate Rule Section:
-    Enter a JSON object representing data attributes and click Evaluate.
-    This sends the data to the /evaluate_rule endpoint, which evaluates it against the combined AST and returns the result (True or False).
+ API Endpoints
+   The backend exposes the following endpoints:
+   
+   * POST /create_rule: Parses a rule string into an AST and stores it.
+        Payload: { "rule_string": "<rule expression>" }
+        Response: { "message": "Rule created", "ast": "<AST representation>" }
 
-* Running the Application:
-  1. Run the Flask server with python app.py.
-  2. Open index.html in a web browser.
-  3. Interact with the UI by creating, combining, and evaluating rules.
+   * POST /combine_rules: Combines all created rules into a single AST using a specified operator.
+         Payload: { "operator": "<AND or OR>" }
+         Response: { "message": "Rules combined", "combined_ast": "<combined AST representation>" }
+
+   * POST /evaluate_rule: Evaluates the combined rule against the provided data.
+        Payload: { "data": { <attribute-value pairs> } }
+        Response: { "result": true/false }
